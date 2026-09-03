@@ -1,0 +1,4 @@
+
+[tool.taskipy.tasks]
+run = "python3 /home/sourav/Cosmos/pythonProjects/snake/src/main.py"
+test = "pytest ."
