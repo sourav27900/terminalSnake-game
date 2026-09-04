@@ -37,7 +37,7 @@ head_pos = [120, 60]
 snake_body = [[120, 60]]
 food_pos = [
     random.randrange(1, (frame_size_X // square_size)) * square_size,
-    random.randrange(1, (frame_size_X // square_size)) * square_size,
+    random.randrange(1, (frame_size_Y // square_size)) * square_size,
 ]
 food_spawn = True
 score = 0
@@ -52,7 +52,7 @@ def init_vars():
     snake_body = [[120, 60]]
     food_pos = [
         random.randrange(1, (frame_size_X // square_size)) * square_size,
-        random.randrange(1, (frame_size_X // square_size)) * square_size,
+        random.randrange(1, (frame_size_Y // square_size)) * square_size,
     ]
     food_spawn = True
     score = 0
@@ -92,31 +92,23 @@ while True:
             # defined the keymappins and there working as standard WASD
         elif event.type == pygame.KEYDOWN:
             if (
-                event.key == pygame.K_UP
-                or event.key == ord("w")
-                and direction != "DOWN"
-            ):
+                event.key == pygame.K_UP or event.key == ord("w")
+            ) and direction != "DOWN":
                 direction = "UP"
 
             elif (
-                event.key == pygame.K_DOWN
-                or event.key == ord("s")
-                and direction != "UP"
-            ):
+                event.key == pygame.K_DOWN or event.key == ord("s")
+            ) and direction != "UP":
                 direction = "DOWN"
 
             elif (
-                event.key == pygame.K_RIGHT
-                or event.key == ord("d")
-                and direction != "LEFT"
-            ):
+                event.key == pygame.K_RIGHT or event.key == ord("d")
+            ) and direction != "LEFT":
                 direction = "RIGHT"
 
             elif (
-                event.key == pygame.K_LEFT
-                or event.key == ord("a")
-                and direction != "RIGHT"
-            ):
+                event.key == pygame.K_LEFT or event.key == ord("a")
+            ) and direction != "RIGHT":
                 direction = "LEFT"
 
     if direction == "UP":
@@ -124,14 +116,14 @@ while True:
     elif direction == "DOWN":
         head_pos[1] += square_size
     elif direction == "LEFT":
-        head_pos[1] -= square_size
+        head_pos[0] -= square_size
 
     else:
         head_pos[0] += square_size
 
     if head_pos[0] < 0:
         head_pos[0] = frame_size_X - square_size
-    elif head_pos[0] > frame_size_Y - square_size:
+    elif head_pos[0] > frame_size_X - square_size:
         head_pos[0] = 0
     elif head_pos[1] < 0:
         head_pos[1] = frame_size_Y - square_size
@@ -179,4 +171,4 @@ while True:
 
     show_score(1, white, "consolas", 20)
     pygame.display.update()
-    fps_controller.tick()
+    fps_controller.tick(speed)
